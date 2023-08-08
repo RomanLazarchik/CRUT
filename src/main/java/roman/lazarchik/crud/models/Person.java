@@ -1,9 +1,6 @@
 package roman.lazarchik.crud.models;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class Person {
     private int id;
@@ -16,11 +13,18 @@ public class Person {
     @NotEmpty(message = "Email must not be empty")
     private String email;
 
-    public Person(int id, String name, int age, String email) {
+    // Страна, Город, Индекс (6 цифр)
+    @Pattern(regexp = "[A-Z]\\w+, [A-Z]\\w+, \\d{6}", message = "Your address must follow the following format: Country, City, Postcode (6 digits)")
+    // "^[A-Z][a-zA-Z']{1,50}, [A-Z][a-zA-Z']{1,50}, \\d{6}$"
+    //"^[A-Z][a-zA-Z']+,\\s[A-Z][a-zA-Z']+,\\s\\d{6}$"
+    private String address;
+
+    public Person(int id, String name, int age, String email, String address) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.email = email;
+        this.address = address;
     }
 
     public Person() {
@@ -56,5 +60,13 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
